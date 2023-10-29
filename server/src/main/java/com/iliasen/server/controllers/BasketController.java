@@ -1,7 +1,6 @@
 package com.iliasen.server.controllers;
 
 import com.iliasen.server.models.Basket;
-import com.iliasen.server.models.User;
 import com.iliasen.server.repositories.BasketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

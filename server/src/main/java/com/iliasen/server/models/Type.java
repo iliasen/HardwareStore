@@ -1,6 +1,5 @@
 package com.iliasen.server.models;
 
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,8 +7,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,26 +23,21 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "types")
+public class Type {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column
+    private Long id;
+
+    @Column(unique = true, nullable = false)
     private String name;
-    @Column
-    private String lastName;
-    @Column(unique = true)
-    private String email;
-    @Column
-    private String password;
-    @Column
-    private String role = "User";
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "basket_id")
-    private Basket basket;
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL)
+    private List<Item> items;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Rating> ratings;
+    @ManyToMany
+    @JoinTable(name = "type_brand",
+            joinColumns = @JoinColumn(name = "type_id"),
+            inverseJoinColumns = @JoinColumn(name = "brand_id"))
+    private List<Brand> brands;
 }

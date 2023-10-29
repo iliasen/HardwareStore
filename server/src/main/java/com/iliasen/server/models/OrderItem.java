@@ -18,23 +18,21 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "basket_items")
-public class BasketItem {
+@Table(name = "order_items")
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private int quantity = 1;
-
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @ManyToOne
-    @JoinColumn(name = "item_id", nullable = false)
+    @JoinColumn(name = "item_id")
     private Item item;
 
+    @Column(nullable = false)
+    private Integer quantity = 1;
 
-
-    @ManyToOne
-    @JoinColumn(name = "basket_id")
-    private Basket basket;
 }
