@@ -1,13 +1,6 @@
 package com.iliasen.server.models;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +22,11 @@ public class Basket {
     @OneToOne(mappedBy = "basket")
     private User user;
 
-    @OneToMany(mappedBy = "basket")
-    private List<BasketItem> basketItems;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "basketItems",
+            joinColumns = @JoinColumn(name = "basket_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    private List<Item> items;
 }
