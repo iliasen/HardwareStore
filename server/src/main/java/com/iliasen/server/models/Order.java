@@ -1,5 +1,6 @@
 package com.iliasen.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,6 +27,10 @@ public class Order {
     private String address;
 
     private String comment;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

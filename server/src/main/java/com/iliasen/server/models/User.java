@@ -38,14 +38,17 @@
         @Column
         private String password;
         @Column
-        private String role = "User";
+        private String role = "USER";
 
-        @JsonIgnore
         @OneToOne(cascade = CascadeType.ALL)
         @JoinColumn(name = "basket_id")
         private Basket basket;
 
+
         @JsonIgnore
         @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
         private List<Rating> ratings;
+
+        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+        private List<Order> orders;
     }
