@@ -5,6 +5,7 @@ import com.iliasen.server.models.UserCredentials;
 import com.iliasen.server.repositories.BasketRepository;
 import com.iliasen.server.repositories.UserRepository;
 import com.iliasen.server.models.User;
+import com.iliasen.server.utils.TokenResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,6 +26,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import javax.crypto.SecretKey;
+import java.security.Key;
 import java.util.Optional;
 
 @Controller
@@ -34,6 +36,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final BasketRepository basketRepository;
     private final PasswordEncoder passwordEncoder;
+
     @PostMapping(path = "/registration")
     public @ResponseBody String registration(@RequestBody User user) {
         if (user.getEmail() == null || user.getPassword() == null) {
@@ -92,12 +95,13 @@ public class UserController {
         return token;
     }
 
-    @PostMapping(path = "/check")
-    public ResponseEntity<String> check(HttpServletRequest request) {
+    @GetMapping(path = "/auth")
+    public ResponseEntity<TokenResponse> check(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        //Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         if (token == null || !token.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Недействительный токен");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
 
         token = token.substring(7);
@@ -114,14 +118,13 @@ public class UserController {
 
             User user = userRepository.findById(userId).orElse(null);
             if (user == null || !user.getEmail().equals(email) || !user.getRole().equals(role)) {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Недействительный токен");
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
             }
 
-            // требуемые действия(если надо)
-
-            return ResponseEntity.ok().body("{\"message\": \"Токен действителен\"}");
+            TokenResponse tokenResponse = new TokenResponse(token);
+            return ResponseEntity.ok().body(tokenResponse);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Недействительный токен");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
     }
 
