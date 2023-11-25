@@ -9,6 +9,7 @@ import com.iliasen.server.utils.TokenResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.crypto.SecretKey;
 import java.security.Key;
+import java.util.Base64;
 import java.util.Optional;
 
 @Controller
@@ -37,6 +39,7 @@ public class UserController {
     private final BasketRepository basketRepository;
     private final PasswordEncoder passwordEncoder;
 
+    private static final String SECRET_KEY = "CdapQnXz5hLBVbONLlcAeCIIF09HAlJsCQ/MHM0MlcY=";
     @PostMapping(path = "/registration")
     public @ResponseBody String registration(@RequestBody User user) {
         if (user.getEmail() == null || user.getPassword() == null) {
@@ -56,8 +59,7 @@ public class UserController {
 
         User savedUser = userRepository.save(user);
         basketRepository.save(basket);
-
-        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
 
         String token = Jwts.builder()
                 .claim("id", savedUser.getId())
@@ -83,8 +85,8 @@ public class UserController {
             throw new IllegalArgumentException("Неверный пароль");
         }
 
-        SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
+        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
         String token = Jwts.builder()
                 .claim("id", user.getId())
                 .claim("email", user.getEmail())
@@ -98,13 +100,15 @@ public class UserController {
     @GetMapping(path = "/auth")
     public ResponseEntity<TokenResponse> check(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-        //Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
-        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+
+        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
         if (token == null || !token.startsWith("Bearer ")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-
         token = token.substring(7);
+
+        System.out.println(token);
+
         try {
             Claims claims = Jwts.parserBuilder()
                     .setSigningKey(key)
@@ -112,10 +116,12 @@ public class UserController {
                     .parseClaimsJws(token)
                     .getBody();
 
+            System.out.println(token);
             Integer userId = claims.get("id", Integer.class);
             String email = claims.get("email", String.class);
             String role = claims.get("role", String.class);
-
+            System.out.println(userId);
+            System.out.printf(email, role);
             User user = userRepository.findById(userId).orElse(null);
             if (user == null || !user.getEmail().equals(email) || !user.getRole().equals(role)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
