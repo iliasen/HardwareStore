@@ -1,0 +1,26 @@
+
+.locationContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.wereAreYou{
+    color: black;
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: center;
+    margin: 20px 16px;
+}
+
+.newLocation{
+    width: 300px;
+}
+.map{
+    width: 200px;
+    height: 180px;
+    background-image: url('../res/Basket/map.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 16px;
+}

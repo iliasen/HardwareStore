@@ -1,0 +1,39 @@
+.Item_img {
+  width: 150px;
+  height: 150px;
+}
+
+.star_img {
+  width: 20px;
+  height: 20px;
+}
+
+.description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+  margin-top: 3px;
+}
+
+.rate_container {
+  display: flex;
+  align-items: center;
+}
+.items-container {
+  cursor: pointer;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: content-box;
+  margin: 16px;
+  width: 150px;
+  height: 220px;
+
+}
+.items-container:hover {
+  scale: 1.2;
+}
+.type {
+  color: lightslategrey;
+}

@@ -1,0 +1,112 @@
+.aboutUs-container {
+  margin-bottom: 72px;
+}
+
+.logo_about {
+  background-image: url('../res/лого.png');
+  background-repeat: no-repeat;
+  background-position-x: center;
+  width: content-box;
+  height: 200px;
+
+  margin: 100px;
+}
+
+.title_about {
+  width: 100vw;
+  height: 500px;
+  background-image: url('../res/AboutUsPage/start_image.jpg');
+  background-repeat: no-repeat;
+  background-size: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f5f5f5;
+}
+.content {
+  margin: 72px 150px;
+  padding: 16px;
+}
+
+.strip {
+  width: 200px;
+  height: 3px;
+  background: brown;
+}
+
+.for_what {
+  margin-right: 150px;
+}
+
+.for_what h1 {
+  font-size: 48px;
+  font-weight: bold;
+  font-family: 'Arial';
+}
+.for_what span {
+  font-size: 18px;
+}
+
+.build_image {
+  width: 960px;
+  height: 540px;
+}
+.mySlides {
+  display: none;
+}
+
+.slideshow-container {
+  max-width: 1000px;
+  margin: auto;
+  padding-left: 30px;
+}
+
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Точки/маркеры/индикаторы */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.activing {
+  background-color: #717171;
+}
+
+.fade {
+  animation-name: fade;
+  animation-duration: 2.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {
+    font-size: 11px;
+  }
+}
+
+.pointers {
+  text-align: center;
+}

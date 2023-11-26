@@ -1,0 +1,109 @@
+.Account{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../res/Account/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: calc(100vw - 18px);
+    height: calc(100vh - 25px);
+    padding:100px;
+    display: flex;
+    justify-content: center;
+}
+
+.Account *{
+    font-size: 20px;
+}
+
+.User_data{
+    width: 350px;
+    height: max-content;
+    -webkit-font-smoothing: antialiased;
+    font-family: YS Text,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.2;
+    text-rendering: optimizeLegibility;
+    -webkit-box-direction: normal;
+    color: rgba(247,247,255,.9);
+    background-color: hsla(0,0%,100%,.4);
+    border-radius: 16px;
+    padding: 16px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.Logo_account{
+    background-image: url("../res/лого.png");
+    background-size: contain;
+    background-position-x: center;
+    background-repeat: no-repeat;
+    margin: 32px;
+    border-radius: 5%;
+    height: 96px;
+}
+
+.User_info{
+    width: 100%;
+    color: #373435;
+    margin-bottom: 10px;
+}
+.title-characteristics_acc{
+    margin-right: 15px;
+    width: 75px;
+    font-size: 18px;
+    display: inline-block;
+}
+.interactions_with_acc{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.interactions_with_acc *{
+    font-size: small;
+}
+
+.switch_account_button{
+    color: blue;
+    width: auto;
+    cursor: pointer;
+}
+.logOut_button{
+    color: red;
+    cursor: pointer;
+
+}
+
+.change_acc_buttons {
+    display: flex;
+    line-height: 1.2;
+    flex-direction: column;
+}
+
+.change_acc_buttons #change {
+    margin-top: 15px;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 10px;
+    background-color: #f7765c;
+    transition: 0.3s;
+    line-height: 44px;
+}
+.change_acc_buttons #change:hover {
+    background: #f66d52;
+}
+
+.change_acc_buttons #logOut {
+    margin-top: 10px;
+    color: rgba(247, 247, 255, 0.9);
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 10px;
+    background-color: #2f2f35;
+    border: 1px solid black;
+    transition: 0.3s;
+    line-height: 44px;
+}
+.change_acc_buttons #logOut:hover {
+    background: #131317;
+}

@@ -1,0 +1,165 @@
+.orderContainer{
+    margin-top: 32px;
+    width: 100%;
+    display:flex;
+    justify-content: space-between;
+    font-family: 'Open Sans',Arial,Helvetica Neue,Helvetica,sans-serif;
+}
+
+.Location{
+    font-weight: 500;
+    color: #000;
+    width: 350px;
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 4px 16px;
+    border: 1px solid #e2e2e2;
+}
+
+
+.deliveryAddress{
+    margin-top: 10px;
+}
+.deliveryAddress > div{
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #000;
+}
+
+.addressInputs{
+    display: flex;
+    flex-direction: column;
+    margin-right: 16px;
+    margin-top: 8px;
+}
+.addressInputs:last-child{
+    margin-right: 0;
+}
+
+.deliveryAddress label{
+    margin-left: 5px;
+    font-size: 16px;
+    line-height: 1.429;
+    font-family: 'Open Sans',Arial,Helvetica Neue,Helvetica,sans-serif;
+    font-weight: 525;
+}
+
+.House, .Flat , .Address{
+    width: 50px;
+    border-radius: 5px;
+    border: 0.1em solid #e2e2e2;
+    padding: 4px 10px;
+    margin-top: 5px;
+}
+.Address{
+    width: 350px;
+    padding: 4px 16px;
+}
+.Flat{
+    width: 100px;
+}
+
+.orderComment{
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 2px solid #e2e2e2;
+    padding: 4px 10px;
+}
+
+.telNumber{
+    margin-top: 32px;
+    width: 500px;
+    background-color: #e2e2e2;
+    border-radius: 5px;
+    padding: 16px;
+}
+#phone{
+    width: 170px;
+    height: 40px;
+    padding:7px;
+    border-radius: 3px;
+    border: 0.1em solid #999;
+    margin-right: 10px;
+}
+
+.confirmTel{
+    height: 40px;
+    border: 0px;
+    background-color: #373435;
+    box-shadow: none;
+    border-radius: 5px;
+    text-decoration: none;
+    padding:10px 25px;
+    cursor: pointer;
+    color: white;
+    font-size: 15px;
+
+}
+.confirmTel:hover{
+    background-color: #2f2f35;
+}
+
+
+
+
+.order{
+    min-width: 300px;
+    border: 1px solid #e2e2e2;
+    border-radius: 7px;
+    padding: 16px;
+    height: max-content;
+}
+
+.changeOrder{
+    text-decoration: none;
+}
+.changeOrder:hover{
+    text-decoration-line: underline;
+}
+
+.itemsContainer{
+    margin-bottom: 10px;
+}
+
+.resetLocationButton{
+    width: 25px;
+    height:25px;
+    background-color: #FFF;
+    border: none;
+    color: #999;
+    border-radius: 7px;
+    margin-left: -40px;
+    margin-top: 5px;
+}
+.resetLocationButton:hover{
+    background-color: #e2e2e2;
+    color: black;
+}
+
+.itemsFromBasket{
+    display: flex;
+    justify-content: space-between;
+}
+
+.item-in-order{
+    margin-right: 20px;
+}
+.order .finalPrice{
+    margin-top: 7px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e2e2;
+}
+
+.orderSentButton{
+    margin-top: 32px;
+    padding: 4px 45px;
+    color: #FFF;
+    font-size: 20px;
+    background-color: #f7765c;
+    border-radius: 5px;
+    border: 0px;
+}
+.orderSentButton:hover{
+    background-color: #f66d52;
+}

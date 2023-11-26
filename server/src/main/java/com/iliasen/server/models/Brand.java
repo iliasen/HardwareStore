@@ -31,6 +31,9 @@ public class Brand {
     @Column(unique = true, nullable = false)
     private String name;
 
+    @Column
+    private String country;
+
     @JsonIgnore
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
     private List<Item> items;

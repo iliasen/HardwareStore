@@ -1,0 +1,96 @@
+.payment-guarantees-back {
+  background: #f5f5f5;
+  padding-bottom: 72px;
+  height: 100%;
+}
+
+.payment-guarantees-container {
+  color: #373435;
+  cursor: default;
+  border: 0;
+  font: inherit;
+  font-family: 'Gill Sans';
+  vertical-align: baseline;
+  background: #ffffff;
+  padding: 20px 30px;
+  box-sizing: border-box;
+  align-content: flex-start;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 1230px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: initial;
+}
+.context_margin {
+  margin: 32px 100px;
+}
+
+.payment-guarantees-container h3 {
+  color: #373435;
+  cursor: default;
+  text-align: justify;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  width: 100%;
+  line-height: 26px;
+  font-family: 'Gill Sans';
+  margin-bottom: 25px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.payment-guarantees-container p {
+  color: #373435;
+  cursor: default;
+  text-align: justify;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-family: 'Gill Sans';
+  vertical-align: baseline;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 25px;
+}
+.payment-guarantees-container ul {
+  color: #373435;
+  cursor: default;
+  text-align: justify;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  font-size: 16px;
+  line-height: 20px;
+  margin-left: 60px;
+  margin-bottom: 25px;
+  color: #373435;
+  cursor: default;
+  text-align: justify;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  vertical-align: baseline;
+  font-size: 16px;
+  line-height: 20px;
+  margin-left: 60px;
+  margin-bottom: 25px;
+}
+.payment-guarantees-container ul li {
+  color: #373435;
+  cursor: default;
+  font: inherit;
+  font-size: 16px;
+  line-height: 20px;
+  box-sizing: border-box;
+}

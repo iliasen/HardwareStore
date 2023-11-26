@@ -12,6 +12,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -104,7 +105,6 @@ public class UserController {
         }
         token = token.substring(7);
 
-        System.out.println(token);
 
         try {
             Claims claims = Jwts.parserBuilder()
@@ -113,12 +113,10 @@ public class UserController {
                     .parseClaimsJws(token)
                     .getBody();
 
-            System.out.println(token);
+
             Integer userId = claims.get("id", Integer.class);
             String email = claims.get("email", String.class);
             String role = claims.get("role", String.class);
-            System.out.println(userId);
-            System.out.printf(email, role);
             User user = userRepository.findById(userId).orElse(null);
             if (user == null || !user.getEmail().equals(email) || !user.getRole().equals(role)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
@@ -141,12 +139,19 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public @ResponseBody String delUser(@PathVariable Integer id){
-        if(id == null){
-            return "Error, no id";
+    public ResponseEntity<String> delBrand(@PathVariable Integer id) {
+        try {
+            if (id == null) {
+                return ResponseEntity.badRequest().body("Error: No ID provided");
+            }
+
+            userRepository.deleteById(id);
+            return ResponseEntity.ok("User with ID " + id + " deleted");
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error: User with ID " + id + " not found");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка: Внутренняя ошибка сервера");
         }
-        userRepository.deleteById(id);
-        return "User with id: "+ id + " deleted";
     }
 
     //@PutMapping

@@ -1,5 +1,6 @@
 package com.iliasen.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +31,7 @@ public class ItemInfo {
     @Column(nullable = false)
     private String description;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "item_id")
     private Item item;

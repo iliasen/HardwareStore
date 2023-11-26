@@ -1,0 +1,105 @@
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 54px);
+  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../res/Auth/фон-регистрация.jpg');
+  -webkit-background-size: cover;
+  background-size: 100vw 100vh;
+  background-attachment: fixed;
+  font-family: sans-serif;
+}
+
+a {
+  padding-bottom: 16px;
+}
+.Logo {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
+  outline: none;
+  background-image: url(../res/лого.png);
+  display: block;
+  height: 64px;
+  margin: 0 auto;
+  width: 64px;
+}
+
+.card-content {
+  width: 350px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 10px;
+}
+.title {
+  margin-button: 30px;
+  text-align: center;
+}
+.main-form {
+  display: flex;
+  line-height: 1.2;
+  flex-direction: column;
+}
+.main-form input {
+  padding: 1px 5px;
+  font-size: 18px;
+  margin-top: 5px;
+  height: 44px;
+  border-radius: 10px;
+}
+.main-form #enter {
+  margin-top: 25px;
+  color: rgba(247, 247, 255, 0.9);
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 10px;
+  background-color: #2f2f35;
+  transition: 0.3s;
+  line-height: 44px;
+}
+.main-form #enter:hover {
+  background: #131317;
+}
+
+.main-form #registration {
+  margin-top: 10px;
+  color: black;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid black;
+  transition: 0.3s;
+  line-height: 44px;
+}
+.main-form #registration:hover {
+  /*background: #91A3B0;*/
+  /*background: #98AFC7;*/
+  /*background: #C0C0C0;*/
+  background: #acada8;
+  /*background: #A9A9A9;*/
+}
+#registration a {
+  color: black;
+  text-decoration: none;
+}
+.back_button {
+  padding: 5px;
+  border-radius: 50%;
+  background-color: #2f2f35;
+  background-image: url('../res/Auth/back2.png');
+  background-size: 30px 30px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: white;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  margin-top: -100px;
+  margin-left: -50px;
+}
+.back_button:hover{
+  background-color: #131317;
+
+}

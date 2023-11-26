@@ -1,0 +1,29 @@
+/**{*/
+/*    filter: invert(100%);*/
+/*    color: #fff;*/
+/*}*/
+
+#adminPanel{
+    display: flex;
+    flex-direction: column;
+}
+.padding *{
+    margin-right: 32px;
+}
+.padding *:last-child{
+    margin-right: 0;
+}
+
+#orders{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    padding: 16px;
+    border-radius: 5px;
+    border: 1px solid #e2e2e2;
+    margin-top: 32px;
+}
+.emptyOrder{
+    margin: 100px;
+    text-align: center;
+}

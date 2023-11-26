@@ -1,0 +1,24 @@
+.OrderItem{
+    margin-bottom: 10px;
+    padding: 16px;
+    border-bottom: 1px solid #f66d52;
+}
+.OrderItem:last-child{
+    border-bottom: none;
+    margin-bottom: 0
+}
+
+.completeOrder{
+    padding: 4px 16px;
+    border-radius: 5px;
+    background-color: #2f2f35;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    font-weight: 530;
+    text-decoration: none;
+}
+.completeOrder:hover{
+    background-color: #f66d52;
+    color: #000;
+}

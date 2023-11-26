@@ -1,0 +1,376 @@
+.item-page-main-container {
+  display: flex;
+  margin-bottom: 72px;
+}
+
+.right-side {
+  margin-left: 100px;
+  margin-top: 46px;
+}
+
+.about_item-container {
+  display: flex;
+  padding-top: 40px;
+}
+.item-image-300 {
+  margin: 16px;
+  width: 300px;
+  height: 300px;
+  border-radius: 10px;
+}
+.head {
+  margin-left: 48px;
+  margin-top: 16px;
+}
+.name-article {
+  display: flex;
+  flex: 1;
+}
+.name-article h1 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.name-article div {
+  display: flex;
+  align-items: flex-start;
+}
+.name-article p {
+  margin-top: -5px;
+  margin-left: 10px;
+  font-family: Arial, Helvetica;
+  font-size: 14px;
+  align-items: flex-start;
+  color: dimgrey;
+}
+
+#feedback-button {
+  margin-left: 10px;
+  text-decoration: underline dashed #eae3dd;
+  cursor: pointer;
+  font-size: 16px;
+}
+#feedback-button:hover {
+  color: dimgrey;
+}
+
+#after_feedback {
+  margin-left: 8px;
+  margin-top: -2px;
+  font-size: 18px;
+}
+
+.price-methods-stores_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.price-methods {
+  border-radius: 10px;
+  background-color: #93967a;
+  width: 400px;
+  height: 500px;
+  padding: 16px;
+}
+
+.price-methods .price {
+  font-size: 30px;
+  margin-top: 20px;
+  color: #ffffff;
+}
+
+.availability {
+  display: flex;
+  margin-left: 25px;
+}
+
+.yes_no_mark {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  margin-top: 4px;
+}
+
+.description_other_shops {
+  font-size: 12px;
+  margin-top: 5px;
+  font: inherit;
+  font-family: 'mn', sans-serif;
+}
+
+.buy-quantity {
+  margin-top: 25px;
+  display: flex;
+}
+
+.buy-quantity input {
+  margin-right: 32px;
+  width: 5em;
+  padding: 5px;
+  text-align: center;
+}
+.buy-quantity input[type='button'] {
+  background-color: #2f2f35;
+  color: #ffffff;
+  border-radius: 10px;
+  width: 220px;
+  text-align: left;
+  height: 55px;
+  padding: 16px;
+  flex-shrink: 0;
+}
+.buy-quantity input[type='button']:hover {
+  background-color: #f66d52;
+}
+
+.button-image {
+  background-image: url('../res/ItemPage/shop.png');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
+  border: none;
+  width: 20px;
+  height: 20px;
+}
+
+.buy_image {
+  width: 40px;
+  height: 40px;
+}
+.location_wallet_img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.delivery,
+.opportunity {
+  margin-top: 20px;
+}
+.from_other_space {
+  margin-top: 10px;
+}
+.opportunity b {
+  margin-top: 5px;
+}
+.opportunity .image_container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.belcard,
+.visa,
+.mastercard,
+.nal {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  width: 75px;
+  height: 45px;
+}
+.belcard {
+  background: url('../res/ItemPage/belcard.webp') no-repeat;
+  background-size: contain;
+}
+.visa {
+  background: url('../res/ItemPage/visa.webp') no-repeat;
+  background-size: contain;
+}
+.mastercard {
+  background: url('../res/ItemPage/mastercard.webp') no-repeat;
+  background-size: contain;
+}
+.nal {
+  background: url('../res/ItemPage/nal.webp') no-repeat;
+  background-size: contain;
+}
+
+.shop-container {
+  border-radius: 10px;
+  background-color: #eae3dd;
+  margin-top: 32px;
+  padding: 16px;
+  width: 400px;
+}
+.shop-container > span {
+  display: block;
+  font-size: 24px;
+  margin: 10px auto;
+
+  text-align: center;
+}
+
+.show_shops {
+  border-radius: 10px;
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.show_shops .item {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f66d52;
+}
+.show_shops .item:last-child {
+  border-bottom: 0px;
+}
+
+.show_shops .info_title {
+  margin-right: 45px;
+  width: 200px;
+  font-size: 18px;
+  font-family: 'Arial';
+}
+
+#feedback-container {
+  margin-top: 10px;
+  display: none;
+}
+#feedback-container textarea {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+
+.button_container {
+  display: flex;
+  margin-top: 10px;
+}
+.button_container input {
+  margin-right: 16px;
+  border-radius: 10px;
+  background-color: #acada8;
+  text-align: center;
+}
+.button_container input[type='button'] {
+  background-color: #f66d52;
+}
+
+.characters-feedback_container {
+  display: block;
+}
+.characters-feedback-titles-container {
+  display: flex;
+  margin: 16px;
+}
+
+.character-title,
+.feedback-title {
+  cursor: pointer;
+  display: flex;
+}
+
+.title {
+  margin-right: 16px;
+}
+
+.characters-feedback {
+  padding: 16px;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  width: 800px;
+  display: flex;
+  flex-direction: column;
+}
+
+.characters-feedback .item {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+}
+
+.characters-feedback .item:nth-child(even) {
+  background: lightgray;
+}
+
+.characters-feedback .item:nth-child(odd) {
+  background: #f5f5f5;
+}
+
+.characters-feedback .info_title {
+  margin-right: 72px;
+  width: 350px;
+}
+
+.characters_img,
+.feedback_img {
+  margin-top: 5px;
+  width: 20px;
+  height: 20px;
+  margin-right: 7px;
+  background-size: contain;
+}
+.characters_img {
+  background-image: url('../res/ItemPage/characteristics.png');
+}
+.feedback_img {
+  background-image: url('../res/ItemPage/comments.png');
+}
+.character-title:hover .characters_img {
+  background-image: url('../res/ItemPage/characters.gif');
+}
+.feedback-title:hover .feedback_img {
+  background-image: url('../res/ItemPage/comment.gif');
+}
+
+#feedback .feedback_about_item {
+  padding: 5px;
+  border-bottom: 1px solid brown;
+  margin: 10px;
+}
+#feedback .feedback_about_item:last-child {
+  border-bottom: 0;
+}
+
+.description-container {
+  margin-top: 16px;
+}
+.description_item {
+  font-size: 18px;
+  border-radius: 10px;
+  margin-top: 10px;
+  width: 800px;
+  padding: 16px;
+  background-color: #f5f5f5;
+}
+.description_item p {
+  font-weight: normal;
+  text-align: left;
+}
+
+.mark_rate {
+  margin-top: -8px;
+  margin-right: 5px;
+  font-size: 24px;
+}
+.rate {
+  background-image: url('../res/ItemPage/star.png');
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+}
+.rating_block {
+  width: 125px;
+  height: 25px;
+  flex-shrink: 0;
+  margin-left: 5px;
+}
+.rating_block input[type='radio'] {
+  display: none;
+}
+.label_rating {
+  float: right;
+  display: block;
+  width: 25px;
+  height: 25px;
+  background: url('../res/ItemPage/star.png') no-repeat;
+  background-size: contain;
+  cursor: pointer;
+}
+.rating_block .label_rating:hover, /*Правило для ховера на текущий лейбл*/
+.rating_block .label_rating:hover ~ .label_rating, /*Правило для всех следующих лейблов по DOM дереву*/
+.rating_block input[type="radio"]:checked ~ .label_rating /*Правило для всех следующих лейблов после выбранного инпута, чтобы звездочки как бы зафиксировались*/ {
+  background-position: 50%-2px;
+  background: url('../res/ItemPage/black_star.png') no-repeat;
+  background-size: contain;
+}
