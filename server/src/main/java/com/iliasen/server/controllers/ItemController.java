@@ -1,50 +1,71 @@
 package com.iliasen.server.controllers;
 
+import com.iliasen.server.models.Brand;
 import com.iliasen.server.models.Item;
+import com.iliasen.server.models.Type;
+import com.iliasen.server.repositories.BrandRepository;
 import com.iliasen.server.repositories.ItemRepository;
+import com.iliasen.server.repositories.TypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(path="/item")
 public class ItemController {
-    private ItemRepository itemRepository;
-/*
+    private final ItemRepository itemRepository;
+    private final TypeRepository typeRepository;
+    private final BrandRepository brandRepository;
+
     @PostMapping
-    public ResponseEntity<Item> create(@RequestBody Item item, @RequestParam("img") MultipartFile img) {
+    public ResponseEntity<Item> createItem(
+            @RequestParam("name") String name,
+            @RequestParam("price") int price,
+            @RequestParam(value = "rating", required = false, defaultValue = "0") int rating,
+            @RequestParam("about") String about,
+            @RequestParam("img") MultipartFile image,
+            @RequestParam("type_id") Integer typeId,
+            @RequestParam("brand_id") Integer brandId) throws IOException {
 
-        try {
+        Item item = new Item();
+        item.setName(name);
+        item.setPrice(price);
+        item.setRating(rating);
+        item.setAbout(about);
+
+        if (image != null && !image.isEmpty()) {
             String fileName = UUID.randomUUID().toString() + ".jpg";
-            String uploadDir = "your-upload-directory"; // Укажите путь к каталогу для загрузки изображений
+            String uploadDir = "src/main/resources/static";
 
-            File uploadPath = new File(uploadDir);
-            if (!uploadPath.exists()) {
-                uploadPath.mkdirs();
+            Path uploadPath = Paths.get(uploadDir);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
             }
 
-            File file = new File(uploadPath, fileName);
-            img.transferTo(file);
+            Path filePath = uploadPath.resolve(fileName);
+            Files.copy(image.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
 
             item.setImg(fileName);
-
-
-
-            return ResponseEntity.ok(item);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
         }
-    }*/
+        Type type = typeRepository.findById(typeId)
+                .orElseThrow(() -> new IllegalArgumentException("Неверный type_id: " + typeId));
+        item.setType(type);
+
+        Brand brand = brandRepository.findById(brandId)
+                .orElseThrow(() -> new IllegalArgumentException("Неверный brand_id: " + brandId));
+        item.setBrand(brand);
+
+        itemRepository.save(item);
+        return ResponseEntity.ok(item);
+    }
 }

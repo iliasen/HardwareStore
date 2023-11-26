@@ -1,5 +1,6 @@
 package com.iliasen.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,14 +31,17 @@ public class Item {
     @Column
     private String img;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "items", cascade = CascadeType.ALL)
     private List<Basket> baskets;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemInfo> info;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "items", cascade = CascadeType.ALL)
     private List<Order> orders;
+
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<Rating> ratings;

@@ -8,7 +8,6 @@ import com.iliasen.server.models.User;
 import com.iliasen.server.utils.TokenResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,8 +26,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import javax.crypto.SecretKey;
-import java.security.Key;
-import java.util.Base64;
 import java.util.Optional;
 
 @Controller
