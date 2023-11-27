@@ -42,8 +42,8 @@ public class ItemController {
             @RequestParam(value = "rating", required = false, defaultValue = "0") int rating,
             @RequestParam("about") String about,
             @RequestParam("img") MultipartFile image,
-            @RequestParam("type_id") Integer typeId,
-            @RequestParam("brand_id") Integer brandId,
+            @RequestParam("typeId") Integer typeId,
+            @RequestParam("brandId") Integer brandId,
             @RequestParam(required = false) List<ItemInfo> info) throws IOException {
 
         Item item = new Item();
@@ -93,8 +93,8 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<List<Item>> getAllItems(
-            @RequestParam(value = "type_id", required = false) Integer typeId,
-            @RequestParam(value = "brand_id", required = false) Integer brandId,
+            @RequestParam(value = "typeId", required = false) Integer typeId,
+            @RequestParam(value = "brandId", required = false) Integer brandId,
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "limit", defaultValue = "8") int limit) {
 
@@ -145,8 +145,8 @@ public class ItemController {
                                            @RequestParam(value = "rating", required = false, defaultValue = "0") int rating,
                                            @RequestParam("about") String about,
                                            @RequestParam("img") MultipartFile image,
-                                           @RequestParam("type_id") Integer typeId,
-                                           @RequestParam("brand_id") Integer brandId,
+                                           @RequestParam("typeId") Integer typeId,
+                                           @RequestParam("brandId") Integer brandId,
                                            @RequestParam(required = false) List<ItemInfo> info) throws IOException {
 
         Optional<Item> itemOptional = itemRepository.findById(id);

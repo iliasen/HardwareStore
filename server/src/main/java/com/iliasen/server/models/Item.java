@@ -32,15 +32,15 @@ public class Item {
     private String img;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "items", cascade = CascadeType.ALL)
-    private List<Basket> baskets;
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<BasketItem> basketItems;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemInfo> info;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "items", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems;
 
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)

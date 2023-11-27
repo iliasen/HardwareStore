@@ -1,7 +1,6 @@
 package com.iliasen.server.controllers;
 
 import com.iliasen.server.models.Basket;
-import com.iliasen.server.models.UserCredentials;
 import com.iliasen.server.repositories.BasketRepository;
 import com.iliasen.server.repositories.UserRepository;
 import com.iliasen.server.models.User;
@@ -70,7 +69,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/login")
-    public @ResponseBody String login(@RequestBody UserCredentials credentials) {
+    public @ResponseBody String login(@RequestBody User credentials) {
         String email = credentials.getEmail();
         String password = credentials.getPassword();
 

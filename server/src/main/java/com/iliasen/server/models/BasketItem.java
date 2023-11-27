@@ -1,30 +1,31 @@
 package com.iliasen.server.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "baskets")
-public class Basket {
+@Table(name = "basket_items")
+public class BasketItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "basket")
-    private User user;
+    @Column
+    private Integer quantity;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL)
-    private List<BasketItem> basketItems;
+    @ManyToOne
+    @JoinColumn(name = "basket_id")
+    private Basket basket;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
+
 }

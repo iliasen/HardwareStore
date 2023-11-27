@@ -7,24 +7,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "baskets")
-public class Basket {
+@Table(name = "order_items")
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
+
+    @Column
+    private Integer quantity;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "basket")
-    private User user;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL)
-    private List<BasketItem> basketItems;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
 }
