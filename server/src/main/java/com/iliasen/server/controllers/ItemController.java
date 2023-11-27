@@ -53,7 +53,7 @@ public class ItemController {
         item.setAbout(about);
 
         if (image != null && !image.isEmpty()) {
-            String fileName = UUID.randomUUID().toString() + ".jpg";
+            String fileName = UUID.randomUUID() + ".jpg";
             String uploadDir = "src/main/resources/static";
 
             Path uploadPath = Paths.get(uploadDir);
@@ -158,7 +158,7 @@ public class ItemController {
             item.setAbout(about);
 
             if (image != null && !image.isEmpty()) {
-                String fileName = UUID.randomUUID().toString() + ".jpg";
+                String fileName = UUID.randomUUID() + ".jpg";
                 String uploadDir = "src/main/resources/static";
 
                 Path uploadPath = Paths.get(uploadDir);
