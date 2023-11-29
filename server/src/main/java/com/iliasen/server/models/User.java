@@ -49,6 +49,7 @@
         @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
         private List<Rating> ratings;
 
+        @JsonIgnore
         @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
         private List<Order> orders;
     }

@@ -1,6 +1,5 @@
 package com.iliasen.server.controllers;
 
-import com.iliasen.server.models.Brand;
 import com.iliasen.server.models.Type;
 import com.iliasen.server.repositories.TypeRepository;
 import lombok.RequiredArgsConstructor;

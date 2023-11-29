@@ -4,6 +4,7 @@ import com.iliasen.server.models.Basket;
 import com.iliasen.server.repositories.BasketRepository;
 import com.iliasen.server.repositories.UserRepository;
 import com.iliasen.server.models.User;
+import com.iliasen.server.utils.SecretKeyReader;
 import com.iliasen.server.utils.TokenResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -36,7 +37,8 @@ public class UserController {
     private final BasketRepository basketRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private static final String SECRET_KEY = "CdapQnXz5hLBVbONLlcAeCIIF09HAlJsCQ/MHM0MlcY=";
+    private static final String SECRET_KEY = SecretKeyReader.getSecretKey();
+
     @PostMapping(path = "/registration")
     public @ResponseBody String registration(@RequestBody User user) {
         if (user.getEmail() == null || user.getPassword() == null) {

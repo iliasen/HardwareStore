@@ -6,20 +6,18 @@ import com.iliasen.server.models.User;
 import com.iliasen.server.repositories.ItemRepository;
 import com.iliasen.server.repositories.RatingRepository;
 import com.iliasen.server.repositories.UserRepository;
+import com.iliasen.server.utils.SecretKeyReader;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.SecretKey;
-import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -38,7 +36,7 @@ public class RatingController {
         User user = userRepository.findById(userId).orElse(null);
         Item item = itemRepository.findById(itemId).orElse(null);
 
-        if (rating != null) {
+        if(rating != null) {
             rating.setRate(req.getRate());
             rating.setFeedback(req.getFeedback());
             ratingRepository.save(rating);
@@ -90,7 +88,7 @@ public class RatingController {
     }
 
     @DeleteMapping("/{itemId}")
-    public ResponseEntity<?> delRating(HttpServletRequest request, @PathVariable("itemId") Integer itemId, @RequestBody Rating req) {
+    public ResponseEntity<?> delRating(HttpServletRequest request, @PathVariable("itemId") Integer itemId) {
         String token = getTokenFromAuthorizationHeader(request);
         Integer userId = getUserIdFromToken(token);
 
@@ -113,8 +111,7 @@ public class RatingController {
     }
 
     private Integer getUserIdFromToken(String token) {
-        // Реализуйте получение идентификатора пользователя из токена
-        String SECRET_KEY = "CdapQnXz5hLBVbONLlcAeCIIF09HAlJsCQ/MHM0MlcY=";
+        String SECRET_KEY = SecretKeyReader.getSecretKey();
         SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
 
         Claims claims = Jwts.parserBuilder()
@@ -123,7 +120,6 @@ public class RatingController {
                 .parseClaimsJws(token)
                 .getBody();
 
-        Integer userId = claims.get("id", Integer.class);
-        return userId;
+        return claims.get("id", Integer.class);
     }
 }

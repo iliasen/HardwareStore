@@ -1,8 +1,6 @@
 package com.iliasen.server.controllers;
 
 import com.iliasen.server.models.Brand;
-import com.iliasen.server.models.Item;
-import com.iliasen.server.models.User;
 import com.iliasen.server.repositories.BrandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;

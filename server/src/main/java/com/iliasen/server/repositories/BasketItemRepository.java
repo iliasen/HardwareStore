@@ -10,4 +10,6 @@ public interface BasketItemRepository extends CrudRepository<BasketItem, Integer
     BasketItem findByBasketIdAndItemId(Integer id, Integer id1);
 
     List<BasketItem> findByBasketIdOrderByItemIdAsc(Integer id);
+
+    void deleteByBasketId(Integer id);
 }

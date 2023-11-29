@@ -1,5 +1,6 @@
 package com.iliasen.server.filter;
 
+import com.iliasen.server.utils.SecretKeyReader;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -12,7 +13,7 @@ import javax.crypto.SecretKey;
 import java.io.IOException;
 
 public class JwtAuthorizationFilter implements Filter {
-    private static final String SECRET_KEY = "CdapQnXz5hLBVbONLlcAeCIIF09HAlJsCQ/MHM0MlcY=";
+    private static final String SECRET_KEY = SecretKeyReader.getSecretKey();
 
     //@PreAuthorize("hasRole('ADMIN')")
     @Override

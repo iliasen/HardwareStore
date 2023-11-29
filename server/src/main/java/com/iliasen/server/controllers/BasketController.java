@@ -26,16 +26,11 @@ public class BasketController {
     public ResponseEntity<String> addItemToBasket(@PathVariable Integer userId, @PathVariable Integer itemId, @RequestBody Map<String, Integer> requestBody) {
         try {
             Integer quantity = requestBody.get("quantity");
-            // Найти или создать корзину с заданным идентификатором
             Basket basket = basketRepository.findById(userId).orElseGet(() -> {
                 Basket newBasket = new Basket();
                 newBasket.setId(userId);
                 return basketRepository.save(newBasket);
             });
-
-            if (basket == null) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Ошибка. Не задан id пользователя");
-            }
 
             Item item = itemRepository.findById(itemId).orElse(null);
 
@@ -140,8 +135,4 @@ public class BasketController {
         return basketRepository.findAll();
     }
 
-//    @GetMapping(path = "/{id}")
-//    public @ResponseBody Optional<Basket> getBasket(@PathVariable Integer id){
-//        return basketRepository.findById(id);
-//    }
 }
