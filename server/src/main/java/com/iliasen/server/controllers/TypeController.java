@@ -31,6 +31,15 @@ public class TypeController {
         return typeRepository.findAll();
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<?> getOne(@PathVariable Integer id){
+        if(id == null){
+            return ResponseEntity.badRequest().body("Нету id");
+        }
+        Type type = typeRepository.findById(id).orElse(null);
+        return ResponseEntity.ok(type);
+    }
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> delType(@PathVariable Integer id) {
         try {

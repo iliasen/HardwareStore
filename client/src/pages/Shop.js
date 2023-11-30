@@ -21,13 +21,12 @@ const Shop = observer(() => {
   }, [])
 
   useEffect(() => {
-    // Проверяем, что item.selectedType и item.selectedBrand не равны null
     if (item.selectedType && item.selectedBrand) {
       fetchItems(item.selectedType.id, item.selectedBrand.id, item.page, 8).then(data => {
         item.setItems(data.rows)
         item.setTotalCount(data.count)
       })
-    }else{// если пустой
+    }else{
       fetchItems(null, null , item.page ,8).then((data) =>{
         item.setItems(data.rows)
         item.setTotalCount(data.count)

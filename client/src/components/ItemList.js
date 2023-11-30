@@ -8,6 +8,11 @@ import Pages from "./Pages";
 
 const ItemList = observer(() => {
   const { item } = useContext(Context)
+  console.log(item)
+  if (!item || !item.items) {
+    return null;
+  }
+
   return (<div>
           {item.items.length !== 0 ? <div>
               <Row className="list">

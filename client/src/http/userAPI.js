@@ -6,8 +6,9 @@ export const registration = async (email, password) => {
   const { data } = await $host.post('api/user/registration', {
     email,
     password,
-    role: 'USER',
+    role: "USER"
   })
+  console.log("Push to server")
   localStorage.setItem('token', data.token)
   return jwt_decode(data.token)
 }

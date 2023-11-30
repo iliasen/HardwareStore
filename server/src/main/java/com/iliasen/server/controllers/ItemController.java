@@ -1,5 +1,7 @@
 package com.iliasen.server.controllers;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iliasen.server.models.Brand;
 import com.iliasen.server.models.Item;
 import com.iliasen.server.models.ItemInfo;
@@ -10,6 +12,7 @@ import com.iliasen.server.repositories.ItemRepository;
 import com.iliasen.server.repositories.TypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,13 +26,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(path="/items")
+@RequestMapping(path="/item")
 public class ItemController {
     private final ItemRepository itemRepository;
     private final TypeRepository typeRepository;
@@ -44,7 +45,7 @@ public class ItemController {
             @RequestParam("img") MultipartFile image,
             @RequestParam("typeId") Integer typeId,
             @RequestParam("brandId") Integer brandId,
-            @RequestParam(required = false) List<ItemInfo> info) throws IOException {
+            @RequestParam(required = false) String infoJson) throws IOException {
 
         Item item = new Item();
         item.setName(name);
@@ -77,8 +78,14 @@ public class ItemController {
 
         itemRepository.save(item);
 
+        // Разбираем JSON строку в список объектов ItemInfo
+        List<ItemInfo> info = new ArrayList<>();
+        if (infoJson != null && !infoJson.isEmpty()) {
+            info = new ObjectMapper().readValue(infoJson, new TypeReference<List<ItemInfo>>() {});
+        }
+
         // Дальнейшая обработка массива info
-        if(info != null){
+        if (info != null) {
             for (ItemInfo infoItem : info) {
                 ItemInfo itemInfo = new ItemInfo();
                 itemInfo.setTitle(infoItem.getTitle());
@@ -92,7 +99,7 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Item>> getAllItems(
+    public ResponseEntity<Map<String, Object>> getAllItems(
             @RequestParam(value = "typeId", required = false) Integer typeId,
             @RequestParam(value = "brandId", required = false) Integer brandId,
             @RequestParam(value = "page", defaultValue = "1") int page,
@@ -101,17 +108,36 @@ public class ItemController {
         Pageable pageable = PageRequest.of(page - 1, limit);
 
         List<Item> items;
+        long totalCount;
         if (typeId != null && brandId != null) {
-            items = itemRepository.findAllByTypeIdAndBrandId(typeId, brandId, pageable).getContent();
+            Page<Item> pageResult = itemRepository.findAllByTypeIdAndBrandId(typeId, brandId, pageable);
+            items = pageResult.getContent();
+            totalCount = pageResult.getTotalElements();
         } else if (typeId != null) {
-            items = itemRepository.findAllByTypeId(typeId, pageable).toList();
+            Page<Item> pageResult = itemRepository.findAllByTypeId(typeId, pageable);
+            items = pageResult.getContent();
+            totalCount = pageResult.getTotalElements();
         } else if (brandId != null) {
-            items = itemRepository.findAllByBrandId(brandId, pageable).toList();
+            Page<Item> pageResult = itemRepository.findAllByBrandId(brandId, pageable);
+            items = pageResult.getContent();
+            totalCount = pageResult.getTotalElements();
         } else {
-            items = itemRepository.findAll(pageable).toList();
+            Page<Item> pageResult = itemRepository.findAll(pageable);
+            items = pageResult.getContent();
+            totalCount = pageResult.getTotalElements();
         }
 
-        return ResponseEntity.ok(items);
+        String baseUrl = "http://localhost:5000/api/"; // Замените на базовый URL вашего сервера
+        for (Item item : items) {
+            String imageUrl = baseUrl + "/src/main/resources/static/" + item.getImg(); // Предполагая, что изображения находятся в папке "images"
+            item.setImg(imageUrl);
+        }
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("count", totalCount);
+        response.put("rows", items);
+
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(path = "/{id}")

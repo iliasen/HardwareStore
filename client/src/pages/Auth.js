@@ -69,12 +69,10 @@ const Auth = observer(() => {
               <NavLink to={LOGIN_ROUTE}>Зарегистрироваться</NavLink>
             </button>
           )}
-          {isLogin ? (
+          {isLogin && (
             <button id="registration">
               <NavLink to={REGISTRATION_ROUTE}>Создать аккаунт</NavLink>
             </button>
-          ) : (
-            <div></div>
           )}
           <button className='back_button' onClick={back} />
         </Form>

@@ -1,18 +1,18 @@
 import { makeAutoObservable } from 'mobx'
 
-export default class ItemStore {
-  constructor() {
-    this._types = []
-    this._brands = []
-    this._items = []
-    this._selectedType = {}
-    this._selectedBrand = {}
-    this._selectedDelItem = {}
-    this._page = 1
-    this._totalCount = 0
-    this._limit = 8
-    makeAutoObservable(this)
-  }
+  export default class ItemStore {
+    constructor() {
+      this._types = []
+      this._brands = []
+      this._items = []
+      this._selectedType = {}
+      this._selectedBrand = {}
+      this._selectedDelItem = {}
+      this._page = 1
+      this._totalCount = 0
+      this._limit = 8
+      makeAutoObservable(this)
+    }
 
   setTypes(types) {
     this._types = types

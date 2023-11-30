@@ -255,11 +255,13 @@ const ItemPage = () => {
 
             <div className="characters-feedback">
               <div id="characters">
-                {item.info.map((info) => (
-                  <div key={info.id} className="item">
-                    <span className="info_title">{info.title}:</span>{' '}{info.description}
-                  </div>
-                ))}
+                {item.info.length === 0 ? (<div className="d-flex justify-content-center">Мы пока не успели добавить характеристики товрава, в ближайшее время все будет !</div>):(
+                    item.info.map((info) => (
+                          <div key={info.id} className="item">
+                            <span className="info_title">{info.title}:</span>{' '}{info.description}
+                          </div>
+                      ))
+                )}
               </div>
 
 

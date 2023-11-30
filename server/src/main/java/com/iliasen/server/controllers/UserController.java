@@ -135,8 +135,12 @@ public class UserController {
         return userRepository.findAll();
     }
     @GetMapping(path="/{id}")
-    public @ResponseBody Optional<User> getUser(@PathVariable Integer id) {
-        return userRepository.findById(id);
+    public ResponseEntity<?> getUser(@PathVariable Integer id) {
+        if(id == null){
+            return ResponseEntity.badRequest().body("Нет id");
+        }
+        User user = userRepository.findById(id).orElse(null);
+        return ResponseEntity.ok(user);
     }
 
     @DeleteMapping(path = "/{id}")

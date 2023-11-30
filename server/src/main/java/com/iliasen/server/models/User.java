@@ -29,10 +29,10 @@
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer id;
-        @Column
+        /*@Column
         private String name;
         @Column
-        private String lastName;
+        private String lastName;*/
         @Column(unique = true)
         private String email;
         @Column

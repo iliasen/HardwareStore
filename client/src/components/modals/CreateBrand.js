@@ -4,10 +4,11 @@ import { Button, Form } from 'react-bootstrap'
 import {createBrand} from "../../http/itemAPI";
 
 const CreateBrand = ({ show, onHide }) => {
-    const [value, setValue] = useState('')
+    const [name, setName] = useState('')
+    const [country, setCountry] = useState("")
     const addBrand = () =>{
-        createBrand({name: value}).then((data) =>  {
-            setValue('')
+        createBrand({name,country}).then((data) =>  {
+            setName('')
             onHide()
         })
     }
@@ -20,7 +21,8 @@ const CreateBrand = ({ show, onHide }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Control placeholder={'Введите название типа'} value={value} onChange={(e) => setValue(e.target.value)}/>
+          <Form.Control placeholder={'Введите название бренда'} value={name} onChange={(e) => setName(e.target.value)}/>
+          <Form.Control className="mt-1" placeholder={'Введите страну бренда'} value={country} onChange={(e) => setCountry(e.target.value)}/>
         </Form>
       </Modal.Body>
       <Modal.Footer>

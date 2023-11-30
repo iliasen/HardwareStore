@@ -23,9 +23,9 @@ const NavBar = observer(() => {
   const { user } = useContext(Context)
   const { basket } = useContext(Context)
 
-  useEffect(()=> {
-    getItems(user.user.id).then((items) => basket.setBasket_items(items))
-  }, [])
+  // useEffect(()=> {
+  //   getItems(user.user.id).then((items) => basket.setBasket_items(items))
+  // }, [])
 
 
   return (
@@ -44,7 +44,8 @@ const NavBar = observer(() => {
           {user.Auth ? (
             <Nav className="href-container">
               <NavLink className="href" to={BASKET_ROUTE}>
-                Корзина {basket.basket_items.length !== 0 ? <div className='quantity-in-basket'>{basket.basket_items.length}</div> : null}
+                Корзина
+                {/*{basket.basket_items.length !== 0 && <div className='quantity-in-basket'>{basket.basket_items.length}</div>}*/}
               </NavLink>
               <NavLink className="href d-flex" to={ACCOUNT_ROUTE}>
 
