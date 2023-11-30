@@ -40,13 +40,13 @@ public class UserController {
     private static final String SECRET_KEY = SecretKeyReader.getSecretKey();
 
     @PostMapping(path = "/registration")
-    public @ResponseBody String registration(@RequestBody User user) {
+    public ResponseEntity<?> registration(@RequestBody User user) {
         if (user.getEmail() == null || user.getPassword() == null) {
-            return "Email или Password отсутвует";
+            return ResponseEntity.badRequest().body("Email или Password отсутвует");
         }
 
         if (userRepository.existsByEmail(user.getEmail())) {
-            return "Пользователь с таким email уже зарегистрирован";
+            return ResponseEntity.badRequest().body("Пользователь с таким email уже зарегистрирован");
         }
 
         String plainPassword = user.getPassword();
@@ -66,12 +66,12 @@ public class UserController {
                 .claim("role", savedUser.getRole())
                 .signWith(key)
                 .compact();
-
-        return token;
+        TokenResponse tokenResponse = new TokenResponse(token);
+        return ResponseEntity.ok(tokenResponse);
     }
 
     @PostMapping(path = "/login")
-    public @ResponseBody String login(@RequestBody User credentials) {
+    public ResponseEntity<?> login(@RequestBody User credentials) {
         String email = credentials.getEmail();
         String password = credentials.getPassword();
 
@@ -92,8 +92,8 @@ public class UserController {
                 .claim("role", user.getRole())
                 .signWith(key)
                 .compact();
-
-        return token;
+        TokenResponse tokenResponse = new TokenResponse(token);
+        return ResponseEntity.ok(tokenResponse);
     }
 
     @GetMapping(path = "/auth")

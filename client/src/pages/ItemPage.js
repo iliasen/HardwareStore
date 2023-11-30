@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import {Image, Tooltip} from 'react-bootstrap'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';;
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { NavLink, useParams } from 'react-router-dom'
 import { PAYMENT_ROUTE } from '../utils/consts'
 import {createRating, fetchOneItem, fetchRating} from '../http/itemAPI'
