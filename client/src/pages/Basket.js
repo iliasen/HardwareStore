@@ -16,14 +16,27 @@ const Basket = observer(() => {
 
   const {user} = useContext(Context)
   const {location} = useContext(Context)
+  const { basket } = useContext(Context)
+
   const navigate = useNavigate()
   const [Visible, setVisible] = useState(false)
 
-  const { basket } = useContext(Context)
 
-  useEffect(()=> {
-    getItems(user.user.id).then((items) => basket.setBasket_items(items))
-  }, [])
+  useEffect(() => {
+    getItems(user.user.id).then((items) => {
+      const adaptedItems = items.map((item) => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        img: item.img,
+        about: item.about,
+        typeId: item.type.id,
+        brandId: item.brand.id,
+      }));
+      basket.setBasket_items(adaptedItems);
+    });
+  }, []);
 
 
   const total = basket.basket_items.reduce(

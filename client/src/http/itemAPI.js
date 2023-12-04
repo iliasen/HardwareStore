@@ -1,4 +1,5 @@
 import { $authHost, $host } from './index'
+import item from "../components/Item";
 //import jwt_decode from "jwt-decode";
 
 export const createType = async (type) => {
@@ -89,5 +90,10 @@ export const fetchRating = async (itemId) => {
 
 export const getAverageRating = async (itemId) => {
   const {data} = await $host.get('api/rating/average/' + itemId)
+  return data
+}
+
+export const deleteRating = async(itemId)=>{
+  const {data} = await $authHost.delete('api/rating/' + itemId)
   return data
 }

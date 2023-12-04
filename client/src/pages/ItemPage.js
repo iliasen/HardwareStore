@@ -4,7 +4,7 @@ import {Image, Tooltip} from 'react-bootstrap'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { NavLink, useParams } from 'react-router-dom'
 import { PAYMENT_ROUTE } from '../utils/consts'
-import {createRating, fetchOneItem, fetchRating} from '../http/itemAPI'
+import {createRating, deleteRating, fetchOneItem, fetchRating} from '../http/itemAPI'
 
 
 import Rating from '../components/modals/Rating'
@@ -15,7 +15,6 @@ import yes from '../res/ItemPage/yes.png'
 import location from '../res/ItemPage/location.png'
 import wallet from '../res/ItemPage/wallet.png'
 import about from '../res/ItemPage/about.png'
-import {fetchUserName} from "../http/userAPI";
 import AverageRating from "../components/modals/AverageRating";
 import {addItem} from "../http/basketAPI";
 import {Context} from "../index";
@@ -39,12 +38,9 @@ const ItemPage = () => {
     fetchRating(id).then((rate) => setRating(rate))
   }, [])
 
-  const [userEmails, setUserEmails] = useState({});
-
-  useEffect(() => {
-    rating.forEach(info =>
-      { fetchUserName(info.userId).then(user =>
-        { setUserEmails(prev => ({...prev, [info.userId]: user.email})); }); }); }, [rating]);
+  const DeleteRating=()=>{
+    deleteRating(id).then((rate)=>{})
+  }
 
   const shops = [
     { id: 1, location: 'Сурганова д.5', flag: true },
@@ -63,7 +59,7 @@ const ItemPage = () => {
     );
   const renderAuthTooltip = (props) => (
       <Tooltip id="auth-tooltip" {...props}>
-        пожалуйста, авторизуйтесь
+        пожалуйста, авторизуйтесьт
       </Tooltip>
   );
 
@@ -269,11 +265,12 @@ const ItemPage = () => {
                 {rating.length === 0 ? (<div className="no-feedback d-flex justify-content-center">Отзывов на данный товар пока нет 😒</div>):(
                   rating.map((info) => (
                   <div key={info.id} className="feedback_about_item">
-                    <span className="info_title">{userEmails[info.userId]} :</span>
-                    <div>
+                    <div className='d-flex justify-content-between'>
                       <Rating rating={info.rate} />
+                      {user.user.id === info.user.id && <div className="deleteRate" onClick={()=>DeleteRating(item.id)}>Delete comment</div>}
                     </div>
-                    {info.feedback}
+
+                    <div>{info.user.email}  : {info.feedback}</div>
                   </div>
                 )))
                 }

@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import { NavLink } from 'react-router-dom'
 import {
   ABOUT_ROUTE,
-  ACCOUNT_ROUTE,
+  ACCOUNT_ROUTE, ADMIN_ROUTE,
   BASKET_ROUTE,
   LOGIN_ROUTE,
   SHOP_ROUTE,
@@ -23,9 +23,21 @@ const NavBar = observer(() => {
   const { user } = useContext(Context)
   const { basket } = useContext(Context)
 
-  // useEffect(()=> {
-  //   getItems(user.user.id).then((items) => basket.setBasket_items(items))
-  // }, [])
+  useEffect(() => {
+    getItems(user.user.id).then((items) => {
+      const adaptedItems = items.map((item) => ({
+        id: item.id,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        img: item.img,
+        about: item.about,
+        typeId: item.type.id,
+        brandId: item.brand.id,
+      }));
+      basket.setBasket_items(adaptedItems);
+    });
+  }, []);
 
 
   return (
@@ -39,13 +51,14 @@ const NavBar = observer(() => {
         <NavLink className="href" to={ABOUT_ROUTE}>
           О нас
         </NavLink>
+        {user.user.role ==="ADMIN" && <NavLink className="href" to={ADMIN_ROUTE}>Админ панель</NavLink>}
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {user.Auth ? (
             <Nav className="href-container">
               <NavLink className="href" to={BASKET_ROUTE}>
                 Корзина
-                {/*{basket.basket_items.length !== 0 && <div className='quantity-in-basket'>{basket.basket_items.length}</div>}*/}
+                {basket.basket_items.length !== 0 && <div className='quantity-in-basket'>{basket.basket_items.length}</div>}
               </NavLink>
               <NavLink className="href d-flex" to={ACCOUNT_ROUTE}>
 

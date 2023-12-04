@@ -31,7 +31,7 @@ const DelItem =  observer(({show, onHide}) => {
                 <Dropdown className="mt-2 mb-2">
                 <Dropdown.Toggle variant='outline-dark'>{item.selectedDelItem.name || "Выберите товар"}</Dropdown.Toggle>
                 <Dropdown.Menu>
-                    {item.items.map( itemForDel =>
+                    {item.items.map(itemForDel =>
                         <Dropdown.Item
                             onClick={() =>item.setSelectedDelItem(itemForDel)}
                             key={itemForDel.id}

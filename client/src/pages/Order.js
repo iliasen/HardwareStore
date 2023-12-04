@@ -35,9 +35,21 @@ const Order = observer( () => {
 
     const innerFormRef = useRef(null)
 
-    useEffect(()=> {
-        getItems(user.user.id).then((items) => basket.setBasket_items(items))
-    }, [])
+    useEffect(() => {
+        getItems(user.user.id).then((items) => {
+            const adaptedItems = items.map((item) => ({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                quantity: item.quantity,
+                img: item.img,
+                about: item.about,
+                typeId: item.type.id,
+                brandId: item.brand.id,
+            }));
+            basket.setBasket_items(adaptedItems);
+        });
+    }, []);
 
 
 
@@ -98,7 +110,7 @@ const Order = observer( () => {
 
     const submitOrder = (event) => {
         event.preventDefault();
-        addOrder(user.user.id, address, comment).then(()=>setVisible(true))
+        addOrder(user.user, address, comment).then(()=>setVisible(true))
     }
 
     // const [errors, setErrors] = useState({});

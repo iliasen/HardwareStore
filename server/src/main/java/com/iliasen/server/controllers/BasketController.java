@@ -92,7 +92,7 @@ public class BasketController {
         }
     }
 
-    @DeleteMapping("/users/{userId}/items/{itemId}")
+    @DeleteMapping("/{userId}/{itemId}")
     public ResponseEntity<String> removeItemFromBasket(@PathVariable Integer userId, @PathVariable Integer itemId) {
         try {
             BasketItem basketItem = basketItemRepository.findByBasketIdAndItemId(userId, itemId);

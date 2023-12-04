@@ -314,6 +314,7 @@
 }
 
 #feedback .feedback_about_item {
+
   padding: 5px;
   border-bottom: 1px solid brown;
   margin: 10px;
@@ -373,4 +374,15 @@
   background-position: 50%-2px;
   background: url('../res/ItemPage/black_star.png') no-repeat;
   background-size: contain;
+}
+
+.deleteRate{
+  cursor: pointer;
+  color: red;
+}
+
+.deleteRate:hover{
+  color: brown;
+  text-underline:brown;
+  text-decoration: underline;
 }

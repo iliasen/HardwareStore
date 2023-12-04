@@ -1,5 +1,4 @@
 import {$authHost} from './index'
-import {observer} from "mobx-react-lite";
 
 export const addItem = async (userId, itemId, quantity) => {
     const { data } = await $authHost.post('api/basket/'+ userId+'/'+ itemId, quantity)
@@ -8,7 +7,7 @@ export const addItem = async (userId, itemId, quantity) => {
 
 export const getItems = async (userId) => {
     const { data } = await $authHost.get('api/basket/'+ userId)
-    return data.basket_items
+    return data
 }
 
 export const updateQuantity = async (userId,itemId,quantity) => {
