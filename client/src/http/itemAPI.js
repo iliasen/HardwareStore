@@ -64,7 +64,7 @@ export const fetchItems = async (typeId, brandId, page, limit = 8) => {
 }
 
 export const fetchAllItems = async () => {
-  const { data } = await $authHost.get('api/item')
+  const { data } = await $authHost.get('api/item/all')
   return data
 }
 

@@ -18,7 +18,7 @@ const DelItem =  observer(({show, onHide}) => {
         console.log(item.selectedDelItem.id)
         deleteOneItem(item.selectedDelItem.id).then(data =>  {onHide()})
     }
-
+    console.log(item)
     return (
         <Modal show={show} onHide={onHide} centered>
             <Modal.Header>

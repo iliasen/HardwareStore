@@ -99,7 +99,7 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<Map<String, Object>> getAllItems(
+    public ResponseEntity<Map<String, Object>> getItems(
             @RequestParam(value = "typeId", required = false) Integer typeId,
             @RequestParam(value = "brandId", required = false) Integer brandId,
             @RequestParam(value = "page", defaultValue = "1") int page,
@@ -139,6 +139,12 @@ public class ItemController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping(path = "/all")
+    public @ResponseBody Iterable<Item> getAll(){
+        return itemRepository.findAll();
+    }
+
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Optional<Item>> getById(@PathVariable Integer id) {
