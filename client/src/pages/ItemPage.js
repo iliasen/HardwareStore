@@ -4,7 +4,7 @@ import {Image, Tooltip} from 'react-bootstrap'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { NavLink, useParams } from 'react-router-dom'
 import { PAYMENT_ROUTE } from '../utils/consts'
-import {createRating, deleteRating, fetchOneItem, fetchRating} from '../http/itemAPI'
+import {createRating, deleteRating, fetchOneItem, fetchRating, getAverageRating} from '../http/itemAPI'
 
 
 import Rating from '../components/modals/Rating'
@@ -26,21 +26,39 @@ const ItemPage = () => {
   const [item, setItem] = useState({ info: [] })
   const { id } = useParams()
   const [rating, setRating] = useState([])
+  const [average, setAverage] = useState(0);
   useEffect(() => {
     fetchOneItem(id).then((data) => setItem(data))
   }, [])
 
-  const CreateRating = (rate, feedback) =>{
-    createRating(id , rate, feedback).then((rate) => {})
-  }
 
   useEffect(() => {
     fetchRating(id).then((rate) => setRating(rate))
   }, [])
 
-  const DeleteRating=()=>{
-    deleteRating(id).then((rate)=>{})
-  }
+  useEffect(() => {
+    getAverageRating(id).then((avg) => {
+      setAverage(avg);
+    });
+  }, [id]);
+
+  const CreateRating = (rate, feedback) => {
+    createRating(id, rate, feedback).then(() => {
+      fetchRating(id).then((rate) => {
+        setRating(rate);
+        getAverageRating(id).then((avg) => setAverage(avg)); // Обновление среднего рейтинга
+      });
+    });
+  };
+
+  const DeleteRating = () => {
+    deleteRating(id).then(() => {
+      fetchRating(id).then((rate) => {
+        setRating(rate);
+        getAverageRating(id).then((avg) => setAverage(avg)); // Обновление среднего рейтинга
+      });
+    });
+  };
 
   const shops = [
     { id: 1, location: 'Сурганова д.5', flag: true },
@@ -99,7 +117,9 @@ const ItemPage = () => {
               </div>
               <div>
                 <div className="d-flex">
-                  <div className="mark_rate"> <AverageRating itemId={id} /> </div>
+                  <div className="mark_rate">
+                    {average}
+                  </div>
                   <div className="rate"></div>
                   <div id="after_feedback"></div>
                   {user.Auth && <div

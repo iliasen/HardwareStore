@@ -5,7 +5,6 @@ const AverageRating = ({ itemId }) => {
     const [average, setAverage] = useState(0);
     useEffect(() => {
         getAverageRating(itemId).then((avg) => {
-            // console.log(avg)
             setAverage(avg);
         });
     }, [itemId]);

@@ -6,12 +6,14 @@ import AverageRating from "./modals/AverageRating";
 import rate from "../res/star.png";
 import {useNavigate} from "react-router-dom";
 import {ITEM_ROUTE} from "../utils/consts";
-import {removeItem, updateQuantity} from "../http/basketAPI";
+import {getItems, removeItem, updateQuantity} from "../http/basketAPI";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 
 const BasketItem =observer(  ({ item }) => {
     const {user} = useContext(Context)
+    const { basket } = useContext(Context)
+
 
     const navigate = useNavigate()
     const [type_name, setType_name] = React.useState(null);
@@ -49,11 +51,35 @@ const BasketItem =observer(  ({ item }) => {
 
                 <div className='item-quantity-price'>
                     <div className='bind-container'>
-                        <div className='bind' onClick={()=> removeItem(user.user.id, item.id).then(() => window.location.reload())}/>
+                        <div className='bind' onClick={()=> removeItem(user.user.id, item.id).then(() => getItems(user.user.id).then((items) => {
+                            const adaptedItems = items.map((item) => ({
+                                id: item.id,
+                                name: item.name,
+                                price: item.price,
+                                quantity: item.quantity,
+                                img: item.img,
+                                about: item.about,
+                                typeId: item.type.id,
+                                brandId: item.brand.id,
+                            }));
+                            basket.setBasket_items(adaptedItems);
+                        }))}/>
                     </div>
 
                     <Form>
-                        <Form.Control type='number' style={{textAlign:"center", width: 125}} defaultValue={item.quantity} onChange={(e) =>  updateQuantity(user.user.id, item.id, e.target.value).then(() => window.location.reload())} min='1' max='10'/>
+                        <Form.Control type='number' style={{textAlign:"center", width: 125}} defaultValue={item.quantity} onChange={(e) =>  updateQuantity(user.user.id, item.id, e.target.value).then(() => getItems(user.user.id).then((items) => {
+                            const adaptedItems = items.map((item) => ({
+                                id: item.id,
+                                name: item.name,
+                                price: item.price,
+                                quantity: item.quantity,
+                                img: item.img,
+                                about: item.about,
+                                typeId: item.type.id,
+                                brandId: item.brand.id,
+                            }));
+                            basket.setBasket_items(adaptedItems);
+                        }))} min='1' max='10'/>
                         <div> {item.quantity !== 1 ? <div className='price-for-one-item'>{item.price}.00 р./шт.</div> : null}</div>
                     </Form>
 
