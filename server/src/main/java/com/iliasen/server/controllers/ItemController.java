@@ -134,17 +134,17 @@ public class ItemController {
             totalCount = pageResult.getTotalElements();
         }
 
-//        String baseUrl = "http://localhost:5000/api/"; // Замените на базовый URL вашего сервера
-//        for (Item item : items) {
-//            String imageUrl = baseUrl + "src/main/resources/static/" + item.getImg(); // Предполагая, что изображения находятся в папке "images"
-//            item.setImg(imageUrl);
-//        }
-
         Map<String, Object> response = new HashMap<>();
         response.put("count", totalCount);
         response.put("rows", items);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path = "/search")
+    public ResponseEntity<List<Item>> searchItems(@RequestParam("query") String query) {
+        List<Item> items = itemRepository.findByNameContaining(query);
+        return ResponseEntity.ok(items);
     }
 
     @GetMapping(path = "/all")

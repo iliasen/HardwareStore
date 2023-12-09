@@ -18,6 +18,7 @@ import { observer } from 'mobx-react-lite'
 import { Image } from 'react-bootstrap'
 import logo from '../res/лого_тем.png'
 import {getItems} from "../http/basketAPI";
+import SearchForm from "./SearchForm";
 
 const NavBar = observer(() => {
   const { user } = useContext(Context)
@@ -52,6 +53,7 @@ const NavBar = observer(() => {
           О нас
         </NavLink>
         {user.user.role ==="ADMIN" && <NavLink className="href" to={ADMIN_ROUTE}>Админ панель</NavLink>}
+        <SearchForm/>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {user.Auth ? (

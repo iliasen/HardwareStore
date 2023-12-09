@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite'
 import { Context } from '../index'
 import { fetchBrands, fetchItems, fetchTypes } from '../http/itemAPI'
 
+
 const Shop = observer(() => {
   const { item } = useContext(Context)
 
@@ -46,6 +47,7 @@ const Shop = observer(() => {
         </Col>
       </Row>
     </Container>
+
   )
 })
 

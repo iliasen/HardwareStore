@@ -73,8 +73,8 @@ export const fetchOneItem = async (id) => {
   return data
 }
 
-export const deleteOneItem = async (id) => {
-  const { data } = await $authHost.delete('api/item/' + id)
+export const searchItems = async (query) =>{
+  const {data} = await $host.get('api/item/search',{params:{query}})
   return data
 }
 
@@ -82,6 +82,11 @@ export const fetchItemImage = async (imageName)=>{
   const {data} = await $host.get('api/item/img/'+imageName, {
     responseType: 'blob',
   })
+  return data
+}
+
+export const deleteOneItem = async (id) => {
+  const { data } = await $authHost.delete('api/item/' + id)
   return data
 }
 

@@ -32,14 +32,16 @@ const Item = ({ item }) => {
           ) : (
               <Image className="Item_img" src={img} />
           )}
-          <div className="description">
-            <header className="type">{item.type.name}</header>
-            <div className="rate_container">
-              <AverageRating itemId={item.id} />
-              <Image className="star_img" src={rate} />
-            </div>
+          <div className='lips'>
+              <div className="description">
+                <header className="type">{item.type.name}</header>
+                <div className="rate_container">
+                  <AverageRating itemId={item.id} />
+                  <Image className="star_img" src={rate} />
+                </div>
+              </div>
+              <div style={{}}>{item.name}</div>
           </div>
-          <div className="d-flex align-items-center">{item.name}</div>
         </div>
       </Col>
   );

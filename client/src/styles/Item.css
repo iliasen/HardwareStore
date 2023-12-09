@@ -14,6 +14,7 @@
   align-items: center;
   width: 150px;
   margin-top: 3px;
+  margin-bottom: auto;
 }
 
 .rate_container {
@@ -37,3 +38,11 @@
 .type {
   color: lightslategrey;
 }
+
+.lips {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 70px;
+}
+

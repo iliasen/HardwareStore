@@ -1,7 +1,7 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Form, Image} from "react-bootstrap";
 import '../styles/BasketItem.css'
-import {fetchOneType} from "../http/itemAPI";
+import {fetchItemImage, fetchOneType} from "../http/itemAPI";
 import AverageRating from "./modals/AverageRating";
 import rate from "../res/star.png";
 import {useNavigate} from "react-router-dom";
@@ -14,9 +14,20 @@ const BasketItem =observer(  ({ item }) => {
     const {user} = useContext(Context)
     const { basket } = useContext(Context)
 
+    const [img, setImg] = useState("");
 
     const navigate = useNavigate()
     const [type_name, setType_name] = React.useState(null);
+
+    useEffect(() => {
+        fetchItemImage(item.img)
+            .then((data) => {
+                setImg(URL.createObjectURL(data));
+            })
+            .catch((error) => {
+                console.error('Error fetching item image:', error);
+            });
+    }, [item.img]);
 
     React.useEffect(() => {
         fetchOneType(item.typeId).then(type => {
@@ -39,7 +50,7 @@ const BasketItem =observer(  ({ item }) => {
             <div className='d-flex'>
                 <Image
                     className="basket-item-image"
-                    src={process.env.REACT_APP_API_URL + item.img}
+                    src={img}
                 />
                 <div className='item-description'>
                     <h5 onClick={() => navigate(ITEM_ROUTE + '/' + item.id)}>{item.name}</h5>
