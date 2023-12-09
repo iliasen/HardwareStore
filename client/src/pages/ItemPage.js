@@ -4,7 +4,7 @@ import {Image, Tooltip} from 'react-bootstrap'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { NavLink, useParams } from 'react-router-dom'
 import { PAYMENT_ROUTE } from '../utils/consts'
-import {createRating, deleteRating, fetchOneItem, fetchRating, getAverageRating} from '../http/itemAPI'
+import {createRating, deleteRating, fetchItemImage, fetchOneItem, fetchRating, getAverageRating} from '../http/itemAPI'
 
 
 import Rating from '../components/modals/Rating'
@@ -15,7 +15,6 @@ import yes from '../res/ItemPage/yes.png'
 import location from '../res/ItemPage/location.png'
 import wallet from '../res/ItemPage/wallet.png'
 import about from '../res/ItemPage/about.png'
-import AverageRating from "../components/modals/AverageRating";
 import {addItem} from "../http/basketAPI";
 import {Context} from "../index";
 
@@ -27,10 +26,26 @@ const ItemPage = () => {
   const { id } = useParams()
   const [rating, setRating] = useState([])
   const [average, setAverage] = useState(0);
+  const [img, setImg] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     fetchOneItem(id).then((data) => setItem(data))
   }, [])
 
+  console.log(item.img)
+
+  useEffect(() => {
+    fetchItemImage(item.img)
+        .then((data) => {
+          setImg(URL.createObjectURL(data));
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          console.error('Error fetching item image:', error);
+          setIsLoading(false);
+        });
+  }, [item.img]);
 
   useEffect(() => {
     fetchRating(id).then((rate) => setRating(rate))
@@ -46,7 +61,7 @@ const ItemPage = () => {
     createRating(id, rate, feedback).then(() => {
       fetchRating(id).then((rate) => {
         setRating(rate);
-        getAverageRating(id).then((avg) => setAverage(avg)); // Обновление среднего рейтинга
+        getAverageRating(id).then((avg) => setAverage(avg));
       });
     });
   };
@@ -55,10 +70,12 @@ const ItemPage = () => {
     deleteRating(id).then(() => {
       fetchRating(id).then((rate) => {
         setRating(rate);
-        getAverageRating(id).then((avg) => setAverage(avg)); // Обновление среднего рейтинга
+        getAverageRating(id).then((avg) => setAverage(avg));
       });
     });
   };
+
+
 
   const shops = [
     { id: 1, location: 'Сурганова д.5', flag: true },
@@ -106,10 +123,11 @@ const ItemPage = () => {
       <div className="item-page-main-container">
         <div className="left-side">
           <div className="about_item-container">
-            <Image
-              className="item-image-300"
-              src={process.env.REACT_APP_API_URL + item.img}
-            />
+            {isLoading ? (
+                <div className="loading-indicator">Loading...</div>
+            ) : (
+                <Image className="item-image-300" src={img} />
+            )}
             <div className="head">
               <div className="name-article">
                 <h1>{item.name}</h1>

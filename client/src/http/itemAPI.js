@@ -78,6 +78,13 @@ export const deleteOneItem = async (id) => {
   return data
 }
 
+export const fetchItemImage = async (imageName)=>{
+  const {data} = await $host.get('api/item/img/'+imageName, {
+    responseType: 'blob',
+  })
+  return data
+}
+
 export const createRating = async (itemId, rate, feedback) => {
   const {data} = await $authHost.post('api/rating/' + itemId, {rate, feedback})
   return data

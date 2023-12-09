@@ -10,7 +10,9 @@ import com.iliasen.server.repositories.BrandRepository;
 import com.iliasen.server.repositories.ItemInfoRepository;
 import com.iliasen.server.repositories.ItemRepository;
 import com.iliasen.server.repositories.TypeRepository;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,8 +21,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.MediaType;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 
 import org.springframework.data.domain.Pageable;
+
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -127,11 +134,11 @@ public class ItemController {
             totalCount = pageResult.getTotalElements();
         }
 
-        String baseUrl = "http://localhost:5000/api/"; // Замените на базовый URL вашего сервера
-        for (Item item : items) {
-            String imageUrl = baseUrl + "/src/main/resources/static/" + item.getImg(); // Предполагая, что изображения находятся в папке "images"
-            item.setImg(imageUrl);
-        }
+//        String baseUrl = "http://localhost:5000/api/"; // Замените на базовый URL вашего сервера
+//        for (Item item : items) {
+//            String imageUrl = baseUrl + "src/main/resources/static/" + item.getImg(); // Предполагая, что изображения находятся в папке "images"
+//            item.setImg(imageUrl);
+//        }
 
         Map<String, Object> response = new HashMap<>();
         response.put("count", totalCount);
@@ -153,6 +160,22 @@ public class ItemController {
         }
         Optional<Item> item = itemRepository.findById(id);
         return ResponseEntity.ok(item);
+    }
+
+
+    @GetMapping("/img/{imageName:.+}")
+    public ResponseEntity<Resource> getProductImage(@PathVariable String imageName) throws IOException {
+        String uploadDir = "src/main/resources/static/";
+        Path imagePath = Paths.get(uploadDir + imageName);
+        Resource resource = new UrlResource(imagePath.toUri());
+
+        if (resource.exists() && resource.isReadable()) {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(resource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping(path = "/{id}")
