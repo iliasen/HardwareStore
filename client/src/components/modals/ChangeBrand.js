@@ -7,6 +7,7 @@ import {observer} from "mobx-react-lite";
 
 const ChangeBrand =  observer(({show, onHide}) => {
     const [value, setValue] = useState('')
+    const [country, setCountry] = useState("")
     const {item} = useContext(Context)
 
     useEffect(() => {
@@ -14,7 +15,7 @@ const ChangeBrand =  observer(({show, onHide}) => {
     }, [])
     const changeNameBrand = () =>{
         console.log(item.selectedBrand.id, value)
-        changeBrand(item.selectedBrand.id, value).then(data =>  {onHide()})
+        changeBrand(item.selectedBrand.id, value, country).then(data =>  {onHide()})
     }
 
     return (
@@ -43,6 +44,7 @@ const ChangeBrand =  observer(({show, onHide}) => {
                         </Dropdown>
                     </div>
                     <Form.Control placeholder={'Введите новое название бренда'} value={value} onChange={(e) => setValue(e.target.value)}/>
+                    <Form.Control className="mt-1" placeholder={'Введите новую страну-производитель бренда'} value={country} onChange={(e) => setCountry(e.target.value)}/>
                 </Form>
             </Modal.Body>
             <Modal.Footer>

@@ -54,6 +54,7 @@ public class ItemController {
             @RequestParam("brandId") Integer brandId,
             @RequestParam(required = false) String infoJson) throws IOException {
 
+
         Item item = new Item();
         item.setName(name);
         item.setPrice(price);

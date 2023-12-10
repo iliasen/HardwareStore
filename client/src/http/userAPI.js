@@ -31,8 +31,8 @@ export const del = async (id) => {
   return data
 }
 
-export const change = async (email,oldPassword, newPassword) => {
-  const { data } = await $authHost.put('api/user/change', {email, oldPassword, newPassword})
+export const change = async (id,oldPassword, newPassword) => {
+  const { data } = await $authHost.put('api/user/change/'+{id}, {oldPassword, newPassword})
   localStorage.setItem('token', data.token)
   return jwt_decode(data.token)
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Spinner, Image } from 'react-bootstrap';
+import { Form, Spinner, Image } from 'react-bootstrap';
 import { fetchItemImage, searchItems } from "../http/itemAPI";
 import { ITEM_ROUTE } from "../utils/consts";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,21 @@ const SearchForm = () => {
     const [query, setQuery] = useState('');
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [img, setImg] = useState("");
+
+    const ImageSearch=({imageName})=>{
+        const [img, setImg] = useState("");
+
+        useEffect(() => {
+            fetchItemImage(imageName)
+                .then((data) => {
+                    setImg(URL.createObjectURL(data));
+                })
+                .catch((error) => {
+                    console.error('Error fetching item image:', error);
+                });
+        }, [imageName]);
+        return (<Image className="searchImg" src={img}/>)
+    }
 
     useEffect(() => {
         let timeoutId;
@@ -74,7 +88,7 @@ const SearchForm = () => {
                             className='searchItem'
                             onClick={() => handleItemClick(item.id)}
                         >
-                            {/*<Image className="searchImg" src={img} />*/}
+                            <ImageSearch imageName={item.img}/>
                             {item.name} {item.price} p.
                         </div>
                     ))

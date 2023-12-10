@@ -31,17 +31,26 @@ const CreateItem = observer(({show, onHide}) => {
     setFile(e.target.files[0])
   }
 
+
   const addItem = () => {
-    const formData = new FormData()//другой способ создания(form-data т.к нам нужен файл)
-    formData.append('name', name)
-    formData.append('price', `${price}`)
-    formData.append('img', file)
-    formData.append('brandId', item.selectedBrand.id)
-    formData.append('typeId', item.selectedType.id)
-    formData.append('info', JSON.stringify(info))//переганяем массив в json строку
-    formData.append('about', about)
-    createItem(formData).then(data => onHide())
-  }
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('price', `${price}`);
+    formData.append('img', file);
+    formData.append('brandId', item.selectedBrand.id);
+    formData.append('typeId', item.selectedType.id);
+
+    // Создаем массив объектов для характеристик товара
+    const properties = info.map(i => ({
+      title: i.title,
+      description: i.description
+    }));
+
+    formData.append('infoJson', JSON.stringify(properties));
+    formData.append('about', about);
+
+    createItem(formData).then(data => onHide());
+  };
 
   return (
       <Modal

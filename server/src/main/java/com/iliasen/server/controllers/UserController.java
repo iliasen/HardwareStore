@@ -16,13 +16,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
@@ -159,5 +153,32 @@ public class UserController {
         }
     }
 
-    //@PutMapping
+    @PutMapping(path = "/change/{id}")
+    public ResponseEntity<?> changePassword(@PathVariable Integer id, @RequestBody String oldPassword, @RequestBody String newPassword) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (!optionalUser.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Пользователь не найден");
+        }
+        User user = optionalUser.get();
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Старый пароль неверен");
+        }
+
+        String newHashedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(newHashedPassword);
+        userRepository.save(user);
+
+        SecretKey key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(SECRET_KEY));
+        String newToken = Jwts.builder()
+                .claim("id", user.getId())
+                .claim("email", user.getEmail())
+                .claim("role", user.getRole())
+                .signWith(key)
+                .compact();
+
+        TokenResponse tokenResponse = new TokenResponse(newToken);
+        return ResponseEntity.ok().body(tokenResponse);
+    }
 }

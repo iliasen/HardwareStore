@@ -16,9 +16,8 @@ const ChangePass = ({ show, onHide }) => {
     const [newPassword, setNewPassword] = useState('')
     const change_password = async (event) => {   event.preventDefault()
         try {
-            let data
-            let email = user.user.email
-            data = await change(email,oldPassword, newPassword)
+            let id = user.user.id
+            let data = await change(id,oldPassword, newPassword)
             user.setUser(data)
             console.log('Change password')
 
