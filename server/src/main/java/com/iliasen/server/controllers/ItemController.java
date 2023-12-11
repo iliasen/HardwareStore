@@ -11,6 +11,7 @@ import com.iliasen.server.repositories.ItemInfoRepository;
 import com.iliasen.server.repositories.ItemRepository;
 import com.iliasen.server.repositories.TypeRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,7 +28,7 @@ import org.springframework.core.io.UrlResource;
 
 import org.springframework.data.domain.Pageable;
 
-import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -194,6 +195,7 @@ public class ItemController {
         }
     }
 
+    @Transactional
     @PutMapping("/{id}")
     public ResponseEntity<Item> updateItem(@PathVariable Integer id,
                                            @RequestParam("name") String name,
@@ -203,7 +205,7 @@ public class ItemController {
                                            @RequestParam("img") MultipartFile image,
                                            @RequestParam("typeId") Integer typeId,
                                            @RequestParam("brandId") Integer brandId,
-                                           @RequestParam(required = false) List<ItemInfo> info) throws IOException {
+                                           @RequestParam(required = false) String infoJson) throws IOException {
 
         Optional<Item> itemOptional = itemRepository.findById(id);
         if (itemOptional.isPresent()) {
@@ -238,18 +240,22 @@ public class ItemController {
 
             Item savedItem = itemRepository.save(item);
 
-            
+            List<ItemInfo> info = new ArrayList<>();
+            if (infoJson != null && !infoJson.isEmpty()) {
+                info = new ObjectMapper().readValue(infoJson, new TypeReference<List<ItemInfo>>() {});
+            }
+
             if (info != null) {
                 // Удаляем старые связанные записи ItemInfo
                 itemInfoRepository.deleteByItem(savedItem);
-
                 for (ItemInfo infoItem : info) {
                     ItemInfo itemInfo = new ItemInfo();
                     itemInfo.setTitle(infoItem.getTitle());
                     itemInfo.setDescription(infoItem.getDescription());
-                    itemInfo.setItem(savedItem);
+                    itemInfo.setItem(item);
                     itemInfoRepository.save(itemInfo);
                 }
+
             }
 
             return ResponseEntity.ok(savedItem);

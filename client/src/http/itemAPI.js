@@ -83,6 +83,11 @@ export const fetchItemImage = async (imageName)=>{
   return data
 }
 
+export const changeItem = async (id,item) => {
+  const { data } = await $authHost.put('api/item/'+id, item)
+  return data
+}
+
 export const deleteOneItem = async (id) => {
   const { data } = await $authHost.delete('api/item/' + id)
   return data
@@ -105,5 +110,10 @@ export const getAverageRating = async (itemId) => {
 
 export const deleteRating = async(itemId)=>{
   const {data} = await $authHost.delete('api/rating/' + itemId)
+  return data
+}
+
+export const deleteRatingByAdmin = async (userId, itemId)=>{
+  const {data} = await $authHost.delete('api/rating/admin' + userId +'/' + itemId)
   return data
 }

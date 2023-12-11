@@ -4,7 +4,15 @@ import {Image, Tooltip} from 'react-bootstrap'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { NavLink, useParams } from 'react-router-dom'
 import { PAYMENT_ROUTE } from '../utils/consts'
-import {createRating, deleteRating, fetchItemImage, fetchOneItem, fetchRating, getAverageRating} from '../http/itemAPI'
+import {
+  createRating,
+  deleteRating,
+  deleteRatingByAdmin,
+  fetchItemImage,
+  fetchOneItem,
+  fetchRating,
+  getAverageRating
+} from '../http/itemAPI'
 
 
 import Rating from '../components/modals/Rating'
@@ -75,6 +83,14 @@ const ItemPage = () => {
     });
   };
 
+  const DeleteRatingByAdmin = (userId) => {
+    deleteRatingByAdmin(userId,id).then(() => {
+      fetchRating(id).then((rate) => {
+        setRating(rate);
+        getAverageRating(id).then((avg) => setAverage(avg));
+      });
+    });
+  };
 
 
   const shops = [
@@ -310,7 +326,8 @@ const ItemPage = () => {
                   <div key={info.id} className="feedback_about_item">
                     <div className='d-flex justify-content-between'>
                       <Rating rating={info.rate} />
-                      {user.user.id === info.user.id && <div className="deleteRate" onClick={()=>DeleteRating(item.id)}>Delete comment</div>}
+                      {user.user.role === "ADMIN" ? (<div className="deleteRate" onClick={()=>DeleteRatingByAdmin(info.user.id,item.id)}>Delete comment</div>):
+                          (user.user.id === info.user.id && <div className="deleteRate" onClick={()=>DeleteRating(item.id)}>Delete comment</div>)}
                     </div>
 
                     <div>{info.user.email}  : {info.feedback}</div>

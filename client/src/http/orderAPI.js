@@ -1,14 +1,10 @@
 import {$authHost} from './index'
 
 export const addOrder = async (user, address, comment) => {
-    const { data } = await $authHost.post('api/order/',{user,address, comment})
+    const { data } = await $authHost.post('api/order',{user,address, comment})
     return data
 }
 
-// export const getOrder = async ()=> {
-//     const { data } = await $authHost.get('api/order')
-//     return data
-// }
 
 export const getOrder = async () => {
     const { data } = await $authHost.get('api/order');

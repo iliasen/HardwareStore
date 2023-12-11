@@ -100,6 +100,16 @@ public class RatingController {
         return ResponseEntity.ok("Рейтинг удалён");
     }
 
+    @DeleteMapping("/admin/{userId}/{itemId}")
+    public ResponseEntity<?> delRatingByAdmin(@PathVariable("userId") Integer userId, @PathVariable("itemId") Integer itemId) {
+        Rating rating = ratingRepository.findByUserIdAndItemId(userId, itemId);
+        if(rating == null){
+            return ResponseEntity.notFound().build();
+        }
+        ratingRepository.deleteById(rating.getId());
+        return ResponseEntity.ok("Рейтинг удалён");
+    }
+
     private String getTokenFromAuthorizationHeader(HttpServletRequest request) {
         String token = request.getHeader("Authorization");
 

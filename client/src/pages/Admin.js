@@ -15,6 +15,7 @@ import {Context} from "../index";
 import "../styles/Admin.css"
 import {observer} from "mobx-react-lite";
 import OrderItem from "../components/modals/OrderItem";
+import ChangeItem from "../components/modals/ChangeItem";
 
 
 const Admin = observer(() => {
@@ -26,7 +27,7 @@ const Admin = observer(() => {
   const [typeDelVisible, setTypeDelVisible] = useState(false)
   const [itemVisible, setItemVisible] = useState(false)
   const [itemDelVisible, setItemDelVisible] = useState(false)
-
+  const [itemChangeVisible, setItemChangeVisible] = useState(false)
   const [checked, setChecked] = useState(false);
   const {user} = useContext(Context)
   const {order} = useContext(Context)
@@ -60,51 +61,6 @@ const Admin = observer(() => {
               </ToggleButton>
           </ToggleButtonGroup>
 
-          {/*<ToggleButton*/}
-          {/*    className="mb-2"*/}
-          {/*    id="toggle-check"*/}
-          {/*    type="checkbox"*/}
-          {/*    variant="outline-dark"*/}
-          {/*    checked={checked}*/}
-          {/*    value="1"*/}
-          {/*    onChange={(e) => setChecked(e.currentTarget.checked)}*/}
-          {/*    onClick={() => {*/}
-          {/*    const orders = document.getElementById('orders')*/}
-          {/*    orders.setAttribute('style', 'display: none')*/}
-          {/*    const admin = document.getElementById('adminPanel')*/}
-          {/*    admin.setAttribute('style', 'display: flex')*/}
-          {/*}}>*/}
-          {/*    Управление*/}
-          {/*</ToggleButton>*/}
-          {/*<ToggleButton*/}
-          {/*    className="mb-2"*/}
-          {/*    id="toggle-check"*/}
-          {/*    type="checkbox"*/}
-          {/*    variant="outline-dark"*/}
-          {/*    checked={checked}*/}
-          {/*    value="1"*/}
-          {/*    onChange={(e) => setChecked(e.currentTarget.checked)}*/}
-          {/*    onClick={() => {*/}
-          {/*        const orders = document.getElementById('orders')*/}
-          {/*        orders.setAttribute('style', 'display: flex')*/}
-          {/*        const admin = document.getElementById('adminPanel')*/}
-          {/*        admin.setAttribute('style', 'display: none')*/}
-          {/*    }}>*/}
-          {/*    Заказы*/}
-          {/*</ToggleButton>*/}
-
-      {/*<Button variant='dark' style={{marginRight: 72}} onClick={() => {*/}
-      {/*  const orders = document.getElementById('orders')*/}
-      {/*  orders.setAttribute('style', 'display: none')*/}
-      {/*  const admin = document.getElementById('adminPanel')*/}
-      {/*  admin.setAttribute('style', 'display: flex')*/}
-      {/*}}>Управление</Button>*/}
-      {/*<Button variant='dark' onClick={() => {*/}
-      {/*  const orders = document.getElementById('orders')*/}
-      {/*  orders.setAttribute('style', 'display: flex')*/}
-      {/*  const admin = document.getElementById('adminPanel')*/}
-      {/*  admin.setAttribute('style', 'display: none')*/}
-      {/*}}>Заказы</Button>*/}
       </div>}
 
       <Image
@@ -154,6 +110,13 @@ const Admin = observer(() => {
             >
               Изменить бренд
             </Button>
+            <Button
+                  variant={'outline-success'}
+                  className="mt-4 p-2"
+                  onClick={() =>  setItemChangeVisible(true)}
+              >
+                Изменить товар
+            </Button>
           </div>
 
           <h2 className='align-self-center mt-4'>Удаление</h2>
@@ -189,6 +152,7 @@ const Admin = observer(() => {
         <ChangeBrand show={brandChangeVisible} onHide={() => setBrandChangeVisible(false)} />
         <DelBrand show={brandDelVisible} onHide={() => setBrandDelVisible(false)}/>
         <CreateItem show={itemVisible} onHide={() => setItemVisible(false)} />
+        <ChangeItem show={itemChangeVisible} onHide={()=>setItemChangeVisible(false)}/>
         <DelItem show={itemDelVisible} onHide={() => setItemDelVisible(false)}/>
       </div>: <div style={{textAlign: "center" , fontSize: 40}}>В доступе отказано !</div>}
 
